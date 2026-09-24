@@ -13,7 +13,7 @@ namespace ProjectManagement_API.Infrastracture.Repositories
     {
         private readonly AppDbContext _appDbContext;
         private readonly DbSet<T> _dbSet;
-        public BaseRepository( AppDbContext appDbContext)
+        public BaseRepository(AppDbContext appDbContext)
         {
              _appDbContext = appDbContext;  
             _dbSet =_appDbContext.Set<T>();
