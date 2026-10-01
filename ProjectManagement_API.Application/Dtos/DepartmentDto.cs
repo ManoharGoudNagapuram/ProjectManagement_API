@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectManagement_API.Application.Features.Departments.Dtos
+namespace ProjectManagement_API.Application.Dtos
 {
     public class DepartmentDto
     {

@@ -1,6 +1,8 @@
 ﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement_API.Application.Features.Departments.Queries.GetAllDepartments;
 
 namespace ProjectManagement_API.API.Controllers
 {
@@ -9,10 +11,16 @@ namespace ProjectManagement_API.API.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
+        private readonly IMediator _mediatR;
+        public DepartmentController(IMediator mediatR) { 
+            _mediatR = mediatR;
+        }
+
         [HttpGet()]
         public async Task<IActionResult> GetDepartments()
         {
-            return Ok();
+           var result=await _mediatR.Send(new GetAllDepartmentsQuery());
+            return Ok(result);
 
         }
     }

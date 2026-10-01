@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ProjectManagement_API.Application.Features.Departments.Dtos;
+//using ProjectManagement_API.Application.Features.Departments.Dtos;
 using ProjectManagement_API.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace ProjectManagement_API.Application.Common.Mappings
     {
         public DepartmentProfile()
         {
-            CreateMap<Department,DepartmentDto>();
+          //  CreateMap<Department,>().ReverseMap();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using ProjectManagement_API.Application.Features.Departments.Dtos;
+using ProjectManagement_API.Application.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

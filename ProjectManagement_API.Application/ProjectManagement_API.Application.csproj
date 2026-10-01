@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Departments\Commands\" />
+    <Folder Include="Features\Employee\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

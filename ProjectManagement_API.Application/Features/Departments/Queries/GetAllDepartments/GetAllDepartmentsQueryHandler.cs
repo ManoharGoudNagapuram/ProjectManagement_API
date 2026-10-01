@@ -1,5 +1,6 @@
-﻿using MediatR;
-using ProjectManagement_API.Application.Features.Departments.Dtos;
+﻿using AutoMapper;
+using MediatR;
+using ProjectManagement_API.Application.Dtos;
 using ProjectManagement_API.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,19 @@ namespace ProjectManagement_API.Application.Features.Departments.Queries.GetAllD
     public class GetAllDepartmentsQueryHandler : IRequestHandler<GetAllDepartmentsQuery, List<DepartmentDto>>
     {
         private readonly IDepartmentRepository _departmentRepository;
-        public GetAllDepartmentsQueryHandler(IDepartmentRepository departmentRepository)
+        private readonly IMapper _mapper;
+        public GetAllDepartmentsQueryHandler(
+            IDepartmentRepository departmentRepository,
+            IMapper mapper)
         {
              _departmentRepository = departmentRepository;
+            _mapper = mapper;
         }
         public async Task<List<DepartmentDto>> Handle(GetAllDepartmentsQuery request, CancellationToken cancellationToken)
         {
             var result= await _departmentRepository.GetAllAsync();
-            throw new NotImplementedException();
+            var res= _mapper.Map<List<DepartmentDto>>(result);
+            return res;
         }
     }
 

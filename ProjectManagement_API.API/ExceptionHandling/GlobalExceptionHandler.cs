@@ -20,6 +20,7 @@ namespace ProjectManagement_API.API.ExceptionHandling
                 NotFoundException => StatusCodes.Status404NotFound,
                 ValidationException => StatusCodes.Status400BadRequest,
                 UnauthorizedException => StatusCodes.Status401Unauthorized,
+                InternalServerException=>StatusCodes.Status500InternalServerError,
                 _ => StatusCodes.Status500InternalServerError
             };
 
@@ -43,7 +44,8 @@ namespace ProjectManagement_API.API.ExceptionHandling
             {
                 StatusCodes.Status400BadRequest => "Bad Request",
                 StatusCodes.Status404NotFound => "Resource Not Found",
-                StatusCodes.Status409Conflict => "Conflict",
+                StatusCodes.Status401Unauthorized => "Unauthorized",
+                StatusCodes.Status500InternalServerError => "An unexpected error occurred",
                 _ => "An unexpected error occurred"
             };
         }
