@@ -18,6 +18,10 @@ namespace ProjectManagement_API.Core.Entities
         public State State { get; private set; }
         public Country Country { get; private set; }
 
+        private Address()
+        {
+
+        }
         private Address(string addrLine1, string addrLine2, string city,
             int stateId, string postalCode, int countryId) {
             AddressLine1=addrLine1;

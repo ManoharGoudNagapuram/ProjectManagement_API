@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Country\Commands\" />
     <Folder Include="Features\Departments\Commands\" />
     <Folder Include="Features\Employee\Queries\" />
+    <Folder Include="Features\State\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectManagement_API.Core\ProjectManagement_API.Core.csproj" />
+    <ProjectReference Include="..\ProjectManagement_API.Infrastracture\ProjectManagement_API.Infrastracture.csproj" />
   </ItemGroup>
 
 </Project>

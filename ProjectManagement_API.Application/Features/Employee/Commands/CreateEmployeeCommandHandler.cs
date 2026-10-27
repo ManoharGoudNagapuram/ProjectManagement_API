@@ -2,6 +2,7 @@
 using ProjectManagement_API.Application.Exceptions;
 using ProjectManagement_API.Core.Entities;
 using ProjectManagement_API.Core.Interfaces;
+using ProjectManagement_API.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,12 @@ namespace ProjectManagement_API.Application.Features.Employee.Commands
     public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, int>
     {
         private readonly IEmployeeRepository _employeeRepository;
-        public CreateEmployeeCommandHandler(IEmployeeRepository employeeRepository)
+        private readonly IQueueMessageService _queueMessageService;
+        public CreateEmployeeCommandHandler(IEmployeeRepository employeeRepository,
+            IQueueMessageService queueMessageService)
         {
                 _employeeRepository = employeeRepository;
+            _queueMessageService = queueMessageService;
         }
         public async Task<int> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
@@ -44,6 +48,21 @@ namespace ProjectManagement_API.Application.Features.Employee.Commands
             {
                 throw new InternalServerException("employee entity save failed");
             }
+
+            //send mesg to queue
+            var message = new
+            {
+                mesgId = Guid.NewGuid(),
+                employeeEntity.FirstName,
+                employeeEntity.LastName,
+                CreatedAtUtc = DateTime.UtcNow
+            };
+
+            await _queueMessageService.SendAsync(
+                message,
+                cancellationToken);
+
+
             return result.Id;
         }
     }

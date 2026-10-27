@@ -1,11 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using ProjectManagement_API.Core.Interfaces;
+using ProjectManagement_API.Infrastracture.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using MediatR;
 
 namespace ProjectManagement_API.Application
 {
@@ -24,6 +26,11 @@ namespace ProjectManagement_API.Application
             {
                 cfg.AddMaps(Assembly.GetExecutingAssembly());
             });
+
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IStateRepository, StateRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
             return services;
         }
     }

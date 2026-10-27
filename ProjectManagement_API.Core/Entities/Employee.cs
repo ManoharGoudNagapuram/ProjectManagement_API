@@ -19,6 +19,10 @@ namespace ProjectManagement_API.Core.Entities
         public Department Department { get; private set; }
         public Address Address { get; private set; }
 
+        private Employee()
+        {
+
+        }
         private Employee(string firstName, string lastName,
             DateTime dob, string emailAddress, string phoneNumber, int departmentId,
             Address address)
