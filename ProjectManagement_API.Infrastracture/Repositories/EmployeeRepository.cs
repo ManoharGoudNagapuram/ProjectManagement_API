@@ -1,4 +1,5 @@
-﻿using ProjectManagement_API.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectManagement_API.Core.Entities;
 using ProjectManagement_API.Core.Interfaces;
 using ProjectManagement_API.Infrastracture.Persistence;
 using System;
@@ -15,6 +16,16 @@ namespace ProjectManagement_API.Infrastracture.Repositories
         public EmployeeRepository(AppDbContext appDbContext):base(appDbContext)
         {
             _appDbContext = appDbContext;
+        }
+
+        public async Task<Employee> GetEmployeeByEmailAsync(string email)
+        {
+            if(string.IsNullOrWhiteSpace(email))
+            { return null; }
+            email = email.Trim();
+
+           var res= await _appDbContext.Employee.Where(x=>x.EmailAddress==email).Include(x=>x.Department).FirstOrDefaultAsync();
+            return res;
         }
     }
 }

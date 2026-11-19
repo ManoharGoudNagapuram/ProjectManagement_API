@@ -13,9 +13,22 @@ namespace ProjectManagement_API.Infrastracture.Repositories
     {
 
         private readonly AppDbContext _appDbContext;
-        public DepartmentRepository(AppDbContext appDbContext):base(appDbContext) 
+        private readonly IEmployeeRepository _employeeRepository;
+        public DepartmentRepository(AppDbContext appDbContext, IEmployeeRepository employeeRepository) :base(appDbContext) 
         {
                 _appDbContext = appDbContext;
+            _employeeRepository = employeeRepository;
+        }
+
+        public async Task<Department> GetDepartmentByUserEmailAsync(string email)
+        {
+           var result=await _employeeRepository.GetEmployeeByEmailAsync(email);
+            if (result==null)
+            {
+                return null;
+            }
+
+           return result.Department;
         }
     }
 }

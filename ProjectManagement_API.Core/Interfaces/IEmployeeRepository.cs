@@ -9,5 +9,6 @@ namespace ProjectManagement_API.Core.Interfaces
 {
     public interface IEmployeeRepository:IBaseRepository<Employee>
     {
+        Task<Employee> GetEmployeeByEmailAsync(string email);
     }
 }

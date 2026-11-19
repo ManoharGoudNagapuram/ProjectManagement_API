@@ -5,16 +5,18 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement_API.API.Response;
 using ProjectManagement_API.Application.Dtos;
 using ProjectManagement_API.Application.Exceptions;
 using ProjectManagement_API.Application.Features.Employee.Commands;
+using ProjectManagement_API.Application.Features.Employee.Queries.SearchEmployees;
 using ProjectManagement_API.Core.Entities;
 using ApplicationExceptions = ProjectManagement_API.Application.Exceptions;
 
 namespace ProjectManagement_API.API.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/employee")]
+    [Route("api/v{version:apiVersion}/employees")]
     [ApiController]
     [Authorize]
     public class EmployeeController : ControllerBase
@@ -22,7 +24,7 @@ namespace ProjectManagement_API.API.Controllers
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IValidator<EmployeeRequestDto> _validator;
-        public EmployeeController(IMapper mapper, 
+        public EmployeeController(IMapper mapper,
             IMediator mediator,
             IValidator<EmployeeRequestDto> validator)
         {
@@ -42,12 +44,12 @@ namespace ProjectManagement_API.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEmployee([FromBody] EmployeeRequestDto employeeRequest)
         {
-            var validResult=await _validator.ValidateAsync(employeeRequest);
+            var validResult = await _validator.ValidateAsync(employeeRequest);
 
             if (!validResult.IsValid)
             {
-              var errors=   validResult.Errors.GroupBy(x=>x.PropertyName).ToDictionary(x=>x.Key,x=>x.Select(y=>y.ErrorMessage).ToArray());
-               return BadRequest(new { errors });
+                var errors = validResult.Errors.GroupBy(x => x.PropertyName).ToDictionary(x => x.Key, x => x.Select(y => y.ErrorMessage).ToArray());
+                return BadRequest(new { errors });
             }
             if (employeeRequest == null)
             {
@@ -62,7 +64,23 @@ namespace ProjectManagement_API.API.Controllers
 
             var result = await _mediator.Send(empRequestCmd);
 
-            return Ok(result);
+            return Ok();
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchEmployees(
+        string? SearchKey,
+        string? SortBy,
+        string? SortOrder,
+        int PageNumber,
+        int PageSize)
+        {
+            var result=await _mediator.Send(new SearchEmployeesQuery { SearchKey = SearchKey, SortBy = SortBy, SortOrder = SortOrder, PageNumber = PageNumber, PageSize = PageSize });
+
+            var response = new ListResult<SearchResponseDto> { Data = result, Error = null, Success = true };
+
+            return Ok(response);
+        
         }
     }
 }

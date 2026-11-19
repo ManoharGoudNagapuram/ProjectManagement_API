@@ -31,6 +31,10 @@ namespace ProjectManagement_API.Application
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IEmployeeSearchRepository, EmployeeSearchRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<ITeamMemberRepository,TeamMemberRepository>();
             return services;
         }
     }

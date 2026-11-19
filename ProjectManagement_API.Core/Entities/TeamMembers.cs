@@ -14,5 +14,23 @@ namespace ProjectManagement_API.Core.Entities
         public Team Team { get; set; }
         public Employee Employee { get; set; }
 
+        private TeamMembers() { }
+
+        private TeamMembers(int teamId, int employeeId)
+        {
+            TeamId = teamId;
+            EmployeeId = employeeId;
+        }
+
+        public static TeamMembers CreateTeamMember(int teamId, int employeeId)
+        {
+            if (teamId <= 0)
+                throw new ArgumentException("TeamId of team meber is required");
+
+            if (employeeId <= 0)
+                throw new ArgumentException("EmployeeId of team meber is required");
+
+            return new TeamMembers(teamId, employeeId);
+        }
     }
 }

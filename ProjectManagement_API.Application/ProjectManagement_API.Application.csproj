@@ -9,8 +9,10 @@
   <ItemGroup>
     <Folder Include="Features\Country\Commands\" />
     <Folder Include="Features\Departments\Commands\" />
-    <Folder Include="Features\Employee\Queries\" />
+    <Folder Include="Features\Project\Queries\" />
     <Folder Include="Features\State\Commands\" />
+    <Folder Include="Features\TeamMember\Queries\" />
+    <Folder Include="Features\Team\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

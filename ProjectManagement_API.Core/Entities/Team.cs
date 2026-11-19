@@ -14,5 +14,26 @@ namespace ProjectManagement_API.Core.Entities
 
         public Project Project { get; set; }
 
+
+        private Team()
+        {
+
+        }
+
+        private Team(int projectId, string name, string description)
+        {
+            ProjectId = projectId;
+            Name = name;
+            Description = description;
+        }
+
+        public static Team CreateTeam(int projectId, string name, string description)
+        {
+            if(string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException("Team name is required.");
+            if (name.Length > 150) throw new Exception("Team name length should be max 150 chars");
+            if (projectId <= 0) throw new ArgumentNullException("ProjectId is required");
+
+            return new Team(projectId, name, description);
+        }
     }
 }

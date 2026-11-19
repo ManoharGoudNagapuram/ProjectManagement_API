@@ -5,6 +5,7 @@ using ProjectManagement_API.Application.Features.Employee.Commands;
 
 //using ProjectManagement_API.Application.Models;
 using ProjectManagement_API.Core.Entities;
+using ProjectManagement_API.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace ProjectManagement_API.Application.Common.Mappings
         {
             CreateMap<EmployeeRequestDto, CreateEmployeeCommand>();
             CreateMap<AddressDto, AddressModel>();
+            CreateMap<EmployeeSearchResponse,SearchResponseDto>();
         }
     }
 }
